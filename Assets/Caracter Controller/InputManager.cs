@@ -17,6 +17,8 @@ public class InputManager : MonoBehaviour, GamePlay.IPlayerActions
         gameplay.Player.SetCallbacks(this);
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,12 @@ public class InputManager : MonoBehaviour, GamePlay.IPlayerActions
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("Receving Move input : " +  context.ReadValue<Vector2>());
+        if (context.performed)
+        {
+            Debug.Log("Receving Move input : " + context.ReadValue<Vector2>());
+
+            InputActions.MoveEvent?.Invoke(context.ReadValue<Vector2>());
+        }
     }
 }
 
