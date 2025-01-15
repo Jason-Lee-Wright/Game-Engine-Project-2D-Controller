@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController characterController;
 
-    public Vector2 moveDirection = Vector2.left;
+    //private Vector2 moveDirection = new Vector2(0.00f, -1.00f);
 
     public float MoveSpeed = 5.0f;
 
@@ -20,6 +20,21 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    void HandleMovement(Vector2 moveDirection)
+    {
         characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    private void Awake()
+    {
+        InputActions.MoveEvent += HandleMovement;
+    }
+
+    private void OnDisable()
+    {
+        InputActions.MoveEvent -= HandleMovement;
     }
 }
