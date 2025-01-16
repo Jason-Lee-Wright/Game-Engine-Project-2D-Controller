@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour, GamePlay.IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.started || context.canceled)
+        if (context.started || context.canceled || context.performed)
         {
             InputActions.MoveEvent?.Invoke(context.ReadValue<Vector2>());
         }
