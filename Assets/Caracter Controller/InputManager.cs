@@ -17,26 +17,19 @@ public class InputManager : MonoBehaviour, GamePlay.IPlayerActions
         gameplay.Player.SetCallbacks(this);
     }
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started || context.canceled)
         {
-            Debug.Log("Receving Move input : " + context.ReadValue<Vector2>());
-
             InputActions.MoveEvent?.Invoke(context.ReadValue<Vector2>());
+        }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.started || context.canceled)
+        {
+            InputActions.InteractEvent.Invoke();
         }
     }
 }
@@ -46,4 +39,6 @@ public class InputManager : MonoBehaviour, GamePlay.IPlayerActions
 public static class InputActions
 {
     public static Action<Vector2> MoveEvent;
+
+    public static Action InteractEvent;
 }
